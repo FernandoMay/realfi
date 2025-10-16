@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       case 'create-proposal':
         // Create new governance proposal
         const proposalId = `prop_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-        const proposal = {
+        const newProposal = {
           id: proposalId,
           title: data.title,
           description: data.description,
@@ -62,12 +62,12 @@ export async function POST(request: NextRequest) {
           budget: data.budget || 0
         }
 
-        proposals.set(proposalId, proposal)
+        proposals.set(proposalId, newProposal)
 
         return NextResponse.json({
           success: true,
           data: {
-            proposal,
+            proposal: newProposal,
             message: 'Proposal created successfully'
           }
         })
@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
           }, { status: 404 })
         }
 
-        const proposal = proposals.get(propId)
+        const existingProposal = proposals.get(propId)
         
         // Check if user already voted
         if (votes.has(`${propId}_${userId}`)) {
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Check voting deadline
-        if (new Date() > new Date(proposal.votingDeadline)) {
+        if (new Date() > new Date(existingProposal.votingDeadline)) {
           return NextResponse.json({
             success: false,
             error: 'Voting period has ended'
@@ -113,14 +113,14 @@ export async function POST(request: NextRequest) {
         votes.set(`${propId}_${userId}`, vote)
         
         // Update proposal vote counts
-        proposal.votes[voteType]++
-        proposals.set(propId, proposal)
+        existingProposal.votes[voteType]++
+        proposals.set(propId, existingProposal)
 
         return NextResponse.json({
           success: true,
           data: {
             vote,
-            currentVotes: proposal.votes,
+            currentVotes: existingProposal.votes,
             message: `Vote recorded: ${voteType}`
           }
         })
