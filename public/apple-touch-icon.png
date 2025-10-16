@@ -1,0 +1,8 @@
+<!-- This would be a real PNG file, but for now we'll use a placeholder -->
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" rx="40" fill="#000000"/>
+  <path d="M90 45C90 45 56 67.5 56 101.25C56 123.75 73.5 135 90 135C106.5 135 124 123.75 124 101.25C124 67.5 90 45 90 45Z" fill="#ffffff"/>
+  <circle cx="90" cy="90" r="22.5" fill="#000000"/>
+  <path d="M45 112.5L33.75 146.25L67.5 135M135 112.5L146.25 146.25L112.5 135" stroke="#ffffff" stroke-width="11.25" stroke-linecap="round"/>
+  <path d="M90 22.5V45M90 135V157.5M22.5 90H45M135 90H157.5" stroke="#ffffff" stroke-width="11.25" stroke-linecap="round"/>
+</svg>
